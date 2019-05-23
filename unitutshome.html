@@ -1,0 +1,37 @@
+<!doctype html>
+<?php
+session_start();
+
+if($_SESSION["username"]==true)
+{
+echo "Welcome" .  " " . $_SESSION["username"];
+}
+else
+{
+	header('location:unitutshome.html');
+}	
+?>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Welcome to UniTuts</title>
+<link href="unituts.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=ABeeZee" rel="stylesheet">
+</head>
+
+<body>
+<h1>UniTuts Home</h1>
+	<div class="menu">
+		<a href="unitutsprofile.php">Profile</a>
+		<a href="unitutstasks.php">Add Tasks</a>
+		<a href="unitutssearch.php">Search for Tutoring</a>
+		<a href="unitutslogout.php">Logout</a>
+	</div>
+	
+	<div class="homepage">
+		<h4>We are UniTuts, an online tutoring service. We are committed to your success in learning new skills.</h4>
+
+	</div>
+	
+</body>
+</html>
