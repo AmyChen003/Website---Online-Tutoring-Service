@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>UniTuts Tasks</title>
+	<link rel="stylesheet" type="text/css" href="unituts.css">
+	<link href="https://fonts.googleapis.com/css?family=ABeeZee" rel="stylesheet">
+</head>
+
+<body>
+<h1>UniTuts Task Assigner</h1>
+	<div class="menu">
+		<a href="unitutshome.html">Home</a>
+		<a href="unitutsprofile.php">Profile</a>
+		<a href="unitutssearch.php">Search for Tutoring</a>
+		<a href="unitutslogout.php">Logout</a>
+	</div>
+	
+	<form action="" method="post">
+		<div class="form">
+			<label><b>Username:</b></label>
+			<input type="text" placeholder="Enter username" name="uname" required>
+			<label><b>Tutoring Subject(s):</b></n></label><br>
+			<input type="checkbox" name="subjects[]" value="html">HTML<br>
+			<input type="checkbox" name="subjects[]" value="css">CSS<br>
+			<input type="checkbox" name="subjects[]" value="php">PHP<br>
+			<input type="checkbox" name="subjects[]" value="sql">SQL<br>
+			<input type="checkbox" name="subjects[]" value="java">Java<br>
+			<input type="checkbox" name="subjects[]" value="python">Python<br>
+			<label><b>Available Days:</b></label><br>
+			<input type="checkbox" name="days[]" value="saturday">Saturday<br>
+			<input type="checkbox" name="days[]" value="sunday">Sunday<br>
+			<label><b>Available Hours:</b></label><br>
+			<input type="checkbox" name="hours[]" value="morning">Morning (8:00 - 11:00 AM)<br>
+			<input type="checkbox" name="hours[]" value="noon">Noon (11:00 AM - 2:00 PM)<br>
+			<input type="checkbox" name="hours[]" value="afternoon">Afternoon (2:00 - 5:00 PM)<br>
+
+			<div class="buttons">
+				<button type="submit" name="assign" class="submitbtn">Assign Task</button>
+				<button type="reset" class="resetbtn">Reset</button>
+			</div>
+		</div>
+	</form>
+	
+<?php
+//CONNECT TO DATABASE
+$conn = new mysqli("localhost", "admin3", "password3", "finalproject");
+if (mysqli_connect_errno($conn)) {
+	echo 'Cannot connect to database: ' . mysqli_connect_error();
+}
+else {
+	echo "Connected to MySQL finalproject database <br />";
+	
+//ESCAPE USER FOR INPUT SECURITY
+if (isset($_POST['assign'])) {
+
+$username=$_POST['uname'];
+
+$subjects=implode(',', $_POST['subjects']);
+
+$days=implode(',', $_POST['days']);
+
+$hours=implode(',', $_POST['hours']);
+
+//INSERT QUERIES
+$query = "insert into unitasks (username, subjects, days, hours) 
+values ('$username', '".$subjects."', '".$days."', '".$hours."')";
+
+$result = mysqli_query($conn, $query);
+}
+}
+?>
+
+</body>
+</html>
